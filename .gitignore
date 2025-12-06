@@ -1,0 +1,8 @@
+.env
+*.pdf
+*.docx
+*.log
+/tmp/
+/vendor/
+dist/
+build/

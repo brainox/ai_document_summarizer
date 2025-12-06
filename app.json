@@ -1,0 +1,57 @@
+{
+  "name": "AI Document Summarizer",
+  "description": "AI-powered document summarization and metadata extraction service",
+  "repository": "https://github.com/yourusername/ai_document_summarizer",
+  "keywords": ["go", "ai", "document-processing", "openrouter", "summarization"],
+  "stack": "container",
+  "addons": [
+    {
+      "plan": "heroku-postgresql:mini",
+      "as": "DATABASE"
+    }
+  ],
+  "env": {
+    "OPENROUTER_API_KEY": {
+      "description": "Your OpenRouter API key for LLM access",
+      "required": true
+    },
+    "OPENROUTER_MODEL": {
+      "description": "OpenRouter model to use",
+      "value": "openai/gpt-4o-mini",
+      "required": false
+    },
+    "AWS_ACCESS_KEY_ID": {
+      "description": "S3/Minio access key",
+      "required": true
+    },
+    "AWS_SECRET_ACCESS_KEY": {
+      "description": "S3/Minio secret key",
+      "required": true
+    },
+    "AWS_REGION": {
+      "description": "AWS S3 region",
+      "value": "us-east-1",
+      "required": false
+    },
+    "S3_ENDPOINT": {
+      "description": "S3 endpoint URL (leave empty for AWS S3)",
+      "required": false
+    },
+    "S3_BUCKET": {
+      "description": "S3 bucket name for document storage",
+      "value": "documents",
+      "required": true
+    },
+    "MAX_FILE_SIZE_MB": {
+      "description": "Maximum file upload size in MB",
+      "value": "5",
+      "required": false
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "basic"
+    }
+  }
+}
