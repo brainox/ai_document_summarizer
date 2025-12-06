@@ -21,7 +21,7 @@ FROM alpine:latest
 # Install runtime dependencies for document processing
 RUN apk --no-cache add ca-certificates poppler-utils antiword unrtf tesseract-ocr
 
-WORKDIR /root/
+WORKDIR /app
 
 # Copy the binary
 COPY --from=builder /app/main .
