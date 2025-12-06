@@ -69,10 +69,10 @@ heroku create your-app-name --stack container
 ### Step 3: Add PostgreSQL Database
 
 ```bash
-heroku addons:create heroku-postgresql:mini
+heroku addons:create heroku-postgresql:essential-0
 ```
 
-The database URL will be automatically set as `DATABASE_URL` environment variable.
+The database URL will be automatically set as `DATABASE_URL` environment variable. The essential-0 plan costs ~$5/month.
 
 ### Step 4: Set Environment Variables
 
@@ -307,7 +307,7 @@ heroku logs --source app --tail
 ### Free Tier Limitations
 
 - **Dynos**: Apps sleep after 30 minutes of inactivity
-- **PostgreSQL**: mini addon ($5/month) - 10,000 rows
+- **PostgreSQL**: essential-0 addon (~$5/month) - 10,000 rows
 - **Build Time**: Limited build minutes per month
 
 ### Recommendations

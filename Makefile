@@ -60,7 +60,7 @@ heroku-create: ## Create new Heroku app with container stack
 	fi
 
 heroku-addons: ## Add PostgreSQL addon
-	heroku addons:create heroku-postgresql:mini
+	heroku addons:create heroku-postgresql:essential-0
 
 heroku-config: ## Set environment variables on Heroku
 	@read -p "Enter OpenRouter API key: " api_key; \
