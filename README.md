@@ -2,6 +2,70 @@
 
 An intelligent document processing service that extracts text from PDF and DOCX files, analyzes them using AI (via OpenRouter), and provides summaries along with metadata extraction.
 
+## 🚀 Live Demo - Quick Test
+
+**Base URL**: `https://ai-document-summarizer-f239edd4a579.herokuapp.com`
+
+Test the live deployment in 3 simple steps:
+
+### Step 1: Health Check
+```bash
+curl https://ai-document-summarizer-f239edd4a579.herokuapp.com/health
+```
+**Expected Response**: `{"status":"ok"}`
+
+### Step 2: Upload a Document
+```bash
+curl -X POST https://ai-document-summarizer-f239edd4a579.herokuapp.com/documents/upload -F "file=@your-document.pdf"
+```
+**Expected Response**:
+```json
+{
+  "id": "uuid-here",
+  "original_name": "your-document.pdf",
+  "file_size": 225326,
+  "message": "Document uploaded successfully"
+}
+```
+**Note**: Save the `id` from the response for the next steps.
+
+### Step 3: Analyze the Document
+Replace `{document-id}` with the ID from step 2:
+```bash
+curl -X POST https://ai-document-summarizer-f239edd4a579.herokuapp.com/documents/{document-id}/analyze
+```
+**Expected Response**:
+```json
+{
+  "id": "uuid-here",
+  "summary": "AI-generated summary of your document...",
+  "document_type": "invoice|cv|report|letter|etc",
+  "metadata": {
+    "date": "extracted date",
+    "sender": "extracted sender",
+    "recipient": "extracted recipient"
+  },
+  "analyzed_at": "2025-12-06T13:05:23Z"
+}
+```
+
+### Step 4: Retrieve Full Document Details
+```bash
+curl https://ai-document-summarizer-f239edd4a579.herokuapp.com/documents/{document-id}
+```
+**Expected Response**: Complete document with extracted text, summary, metadata, and timestamps.
+
+### One-Liner Test Script
+```bash
+# Upload and auto-analyze in one go
+DOC_ID=$(curl -s -X POST https://ai-document-summarizer-f239edd4a579.herokuapp.com/documents/upload \
+  -F "file=@your-document.pdf" | grep -o '"id":"[^"]*"' | cut -d'"' -f4) && \
+curl -X POST https://ai-document-summarizer-f239edd4a579.herokuapp.com/documents/$DOC_ID/analyze && \
+curl https://ai-document-summarizer-f239edd4a579.herokuapp.com/documents/$DOC_ID | python3 -m json.tool
+```
+
+---
+
 ## Features
 
 - 📄 **File Upload**: Support for PDF and DOCX files (max 5MB)
