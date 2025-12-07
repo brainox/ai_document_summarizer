@@ -53,8 +53,8 @@ func (dc *DocumentController) UploadDocument(c *gin.Context) {
 
 	// Validate file type
 	ext := strings.ToLower(filepath.Ext(file.Filename))
-	if ext != ".pdf" && ext != ".docx" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Only PDF and DOCX files are supported"})
+	if ext != ".pdf" && ext != ".docx" && ext != ".txt" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Only PDF, DOCX, and TXT files are supported"})
 		return
 	}
 
@@ -62,6 +62,8 @@ func (dc *DocumentController) UploadDocument(c *gin.Context) {
 	mimeType := "application/pdf"
 	if ext == ".docx" {
 		mimeType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+	} else if ext == ".txt" {
+		mimeType = "text/plain"
 	}
 
 	// Generate unique S3 key
